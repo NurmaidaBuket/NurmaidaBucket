@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <!-- PERBAIKAN PENTING: Meta viewport yang benar untuk mencegah zoom dan penggeseran -->
+    <!-- PERBAIKAN PENTING: Meta viewport yang benar untuk mencegah zoom dan penggeseran samping -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
     <title>Fleur de Maida</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,24 +17,24 @@
         
         .gold-glow {
             background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08) 0%, rgba(0,0,0,0) 70%);
-            /* Pastikan elemen ini tidak melebihi lebar layar */
             max-width: 100vw;
             overflow: hidden;
         }
 
-        /* PERBAIKAN UTAMA: Mencegah semua elemen melampaui batas layar */
+        /* PERBAIKAN UTAMA: Cegah geser samping, tapi biarkan scroll atas-bawah */
         html, 
         body {
             width: 100%;
             max-width: 100%;
-            height: 100%;
-            overflow-x: hidden !important; /* Paksa sembunyikan geser horizontal */
+            overflow-x: hidden !important; <!-- KUNCI: HANYA sembunyikan geser samping -->
+            overflow-y: auto !important; <!-- KUNCI: Biarkan geser atas-bawah -->
             position: relative;
             margin: 0;
             padding: 0;
+            touch-action: pan-y; <!-- Izinkan geser VERTIKAL saja -->
         }
 
-        /* Tambahan untuk pembungkus agar aman */
+        /* Pembungkus aman */
         #main-wrapper {
             width: 100%;
             overflow-x: hidden;
@@ -133,12 +133,7 @@
             menuDropdown.classList.toggle('hidden');
         });
 
-        // TAMBAHAN: Mencegah sentuhan geser yang tidak disengaja
-        document.addEventListener('touchmove', function (e) {
-            if (e.target.closest('.scrollable-element') === null) {
-                e.preventDefault();
-            }
-        }, { passive: false });
+        <!-- BAGIAN YANG SALAH SUDAH DIHAPUS -->
     </script>
 </body>
 </html>
