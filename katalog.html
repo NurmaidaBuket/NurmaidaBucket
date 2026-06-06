@@ -159,33 +159,38 @@
     </div> <script>
         const menuBtn = document.getElementById('menu-btn');
         const menuDropdown = document.getElementById('menu-dropdown');
+        
+        // Toggle Menu Dropdown
         menuBtn.addEventListener('click', () => {
             menuDropdown.classList.toggle('hidden');
         });
 
-        // Pengaman script WhatsApp agar tidak memicu error crash
-        const sendWaBtn = document.getElementById('send-wa-btn');
-        if (sendWaBtn) {
-            sendWaBtn.addEventListener('click', () => {
-                const nama    = document.getElementById('nama')?.value.trim();
-                const koleksi = document.getElementById('koleksi')?.value;
-                const catatan = document.getElementById('catatan')?.value.trim();
+        // Fitur Kirim WhatsApp
+        document.getElementById('send-wa-btn').addEventListener('click', () => {
+            const nama    = document.getElementById('nama').value.trim();
+            const koleksi = document.getElementById('koleksi').value;
+            const catatan = document.getElementById('catatan').value.trim();
 
-                if (!nama) {
-                    alert('Mohon masukkan nama lengkap Anda terlebih dahulu.');
-                    return;
-                }
+            if (!nama) {
+                alert('Mohon masukkan nama lengkap Anda terlebih dahulu.');
+                return;
+            }
 
-                const pesan =
-                    `Halo Fleur de Maida, saya ingin melakukan pemesanan:\n\n` +
-                    `*Nama:* ${nama}\n` +
-                    `*Koleksi:* ${koleksi}\n` +
-                    `*Catatan:* ${catatan || '-'}`;
+            const pesan =
+                `Halo Fleur de Maida, saya ingin melakukan pemesanan:\n\n` +
+                `*Nama:* ${nama}\n` +
+                `*Koleksi:* ${koleksi}\n` +
+                `*Catatan:* ${catatan || '-'}`;
 
-                const waURL = `https://wa.me/6282298219306?text=${encodeURIComponent(pesan)}`;
-                window.open(waURL, '_blank');
-            });
-        }
+            const waURL = `https://wa.me/6282298219306?text=${encodeURIComponent(pesan)}`;
+            window.open(waURL, '_blank');
+        });
+
+        /* PERBAIKAN: Kode yang bikin beku dihapus. 
+           Sebagai gantinya, gunakan cara standar untuk mencegah zoom lewat gesture jika diperlukan */
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
     </script>
 </body>
 </html>
